@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recipe Planner & Meal Organizer</title>
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Apple Minimalist CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVIGATION BAR (Dynamic Island) -->
+<header>
+    <a href="index.html" class="brand" aria-label="Smart Recipe Planner Homepage">
+        <span class="brand-symbol-badge">
+            <span class="material-symbols-outlined" aria-hidden="true">restaurant_menu</span>
+        </span>
+        <span>Smart Recipe Planner</span>
+    </a>
+    
+    <nav class="nav-tabs" aria-label="Main Navigation">
+        <button type="button" class="tab-btn active" onclick="switchTab('recipes', event)"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span> <span>Recipes</span></button>
+        <button type="button" class="tab-btn" onclick="switchTab('planner', event)"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span> <span>Planner</span></button>
+        <button type="button" class="tab-btn" onclick="switchTab('shopping', event)"><span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span> <span>Shopping</span></button>
+    </nav>
+
+    <div class="header-right">
+        <div id="authNavArea" class="user-auth-badge">
+            <!-- Dynamically populated by script.js -->
+            <a href="login.html" class="auth-nav-link" aria-label="Sign in to your account"><span class="material-symbols-outlined" aria-hidden="true">login</span> <span>Sign In</span></a>
+        </div>
+    </div>
+
+    <!-- Liquid Glass Distortion Filter Definition -->
+    <svg class="liquid-glass-filter-svg" style="position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none;" aria-hidden="true">
+        <defs>
+            <filter id="container-glass" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+                <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" seed="1" result="turbulence"/>
+                <feGaussianBlur in="turbulence" stdDeviation="2" result="blurredNoise"/>
+                <feDisplacementMap in="SourceGraphic" in2="blurredNoise" scale="70" xChannelSelector="R" yChannelSelector="B" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="4" result="finalBlur"/>
+                <feComposite in="finalBlur" in2="finalBlur" operator="over"/>
+            </filter>
+        </defs>
+    </svg>
+</header>
+
+<!-- HERO SECTION (Compact Half-Screen with Simple Words & 3D Visual) -->
+<section class="hero-section" aria-label="Introduction">
+    <div class="hero-container">
+        <!-- LEFT: SIMPLE WORDS, SMALL SLOGANS & DIRECT ACTIONS -->
+        <div class="hero-content">
+            <div class="hero-pill">
+                <span class="material-symbols-outlined" aria-hidden="true">skillet</span>
+                <span>Cook More • Waste Less</span>
+            </div>
+            <h1 class="hero-title">Make Good Food With <span class="hero-gradient-text">What You Have</span></h1>
+            <p class="hero-subtitle">Pick items in your fridge, find fast recipes, and plan your week easily.</p>
+            <div class="hero-actions">
+                <button type="button" class="hero-btn-primary" onclick="switchTab('recipes'); document.getElementById('recipes-view').scrollIntoView({behavior: 'smooth'});">
+                    <span class="material-symbols-outlined" aria-hidden="true">search</span> <span>Find Recipes</span>
+                </button>
+                <button type="button" class="hero-btn-secondary" style="background:#FFFFFF; color:#111827; border:1px solid rgba(0,0,0,0.12);" onclick="switchTab('planner'); document.getElementById('planner-view').scrollIntoView({behavior: 'smooth'});">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="color:#111827;">calendar_month</span> <span style="color:#111827;">Meal Planner</span>
+                </button>
+                <button type="button" class="hero-btn-secondary" style="background:#FFFFFF; color:#111827; border:1px solid rgba(0,0,0,0.12);" onclick="switchTab('recipes'); document.getElementById('findIngredientsInput').scrollIntoView({behavior: 'smooth'}); document.getElementById('findIngredientsInput').focus();">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="color:#111827;">kitchen</span> <span style="color:#111827;">Match Food</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT: 3D FLOATING RECIPE CARD & FOOD CHIPS -->
+        <div class="hero-3d-wrapper" aria-hidden="true">
+            <div class="hero-3d-card">
+                <div class="hero-3d-header">
+                    <div class="hero-3d-badge-icon">
+                        <span class="material-symbols-outlined" style="font-size:22px;">local_pizza</span>
+                    </div>
+                    <div>
+                        <div class="hero-3d-title">15-Min Skillet Pizza</div>
+                        <div class="hero-3d-subtitle">
+                            <span class="material-symbols-outlined" style="font-size:13px;">schedule</span>
+                            <span>15 mins • 4 items</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-3d-tags">
+                    <span class="hero-3d-tag">Cheese</span>
+                    <span class="hero-3d-tag">Tomato</span>
+                    <span class="hero-3d-tag">Bread</span>
+                </div>
+                <div class="hero-3d-status">
+                    <span class="material-symbols-outlined" style="font-size:16px; color:#059669;">check_circle</span>
+                    <span>Ready with items in fridge</span>
+                </div>
+            </div>
+            <div class="hero-float-chip chip-1">
+                <span class="material-symbols-outlined" style="color:#FF6B00; font-size:14px;">egg</span>
+                <span>3 Eggs</span>
+            </div>
+            <div class="hero-float-chip chip-2">
+                <span class="material-symbols-outlined" style="color:#059669; font-size:14px;">eco</span>
+                <span>Fresh Herbs</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MAIN CONTENT CONTAINER -->
+<main class="container">
+
+    <!-- TAB 1: RECIPES SECTION -->
+    <section id="recipes-view" class="view-section active" aria-label="Recipe Discovery">
+        
+        <!-- Recipe Search and Filter Bar -->
+        <div class="card-box" style="padding: 20px 24px;">
+            <div class="form-grid">
+                <div class="input-with-icon">
+                    <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">search</span>
+                    <input type="text" id="searchInput" oninput="filterRecipes()" placeholder="Search saved recipes by name, cuisine, or ingredients..." aria-label="Search saved recipes by name, cuisine, or ingredients">
+                </div>
+                <div class="input-with-icon">
+                    <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">tune</span>
+                    <select id="filterDiet" onchange="filterRecipes()" aria-label="Filter recipes by diet">
+                        <option value="All">All Diets</option>
+                        <option value="Veg">Vegetarian</option>
+                        <option value="Non-Veg">Non-Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ingredient Recipe Matcher Section -->
+        <div class="card-box generator-card">
+            <h2><span class="material-symbols-outlined" aria-hidden="true">kitchen</span> Find Recipes by Ingredients</h2>
+            <div class="form-grid">
+                <div class="input-with-icon full-width">
+                    <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">kitchen</span>
+                    <input type="text" id="findIngredientsInput" placeholder="Enter ingredients you have (e.g. paneer, tomato, garlic, rice)" aria-label="Enter ingredients you have">
+                </div>
+                <button type="button" class="btn-submit btn-primary" onclick="generateFromDatabase()">
+                    <span class="material-symbols-outlined" aria-hidden="true">search</span> <span>Match Recipes</span>
+                </button>
+            </div>
+            <div id="foundRecipesArea" style="margin-top: 18px; display: grid; gap: 12px;"></div>
+        </div>
+
+        <!-- Add New Recipe Section -->
+        <div class="card-box">
+            <h2><span class="material-symbols-outlined" aria-hidden="true">add_circle</span> Add New Recipe</h2>
+            <form id="recipeForm">
+                <div class="form-grid">
+                    <input type="text" id="recipeName" placeholder="Recipe Name" required aria-label="Recipe Name">
+                    
+                    <select id="dietPref" required aria-label="Dietary Preference">
+                        <option value="" disabled selected>Dietary Preference</option>
+                        <option value="Veg">Vegetarian</option>
+                        <option value="Non-Veg">Non-Vegetarian</option>
+                        <option value="Vegan">Vegan</option>
+                    </select>
+
+                    <input type="text" id="cuisine" placeholder="Cuisine (e.g. Italian, Indian, Mexican)" required aria-label="Cuisine">
+                    <input type="number" id="prepTime" min="1" step="1" placeholder="Prep Time (Minutes)" required aria-label="Prep Time in Minutes">
+
+                    <select id="mealType" required aria-label="Meal Category">
+                        <option value="" disabled selected>Meal Category</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                    </select>
+
+                    <input type="number" id="calories" min="1" placeholder="Calories (kcal)" required aria-label="Calories">
+                    <input type="text" id="macros" placeholder="Macros (e.g. P: 24g, C: 42g, F: 12g)" aria-label="Macronutrients">
+
+                    <textarea id="ingredients" class="full-width" rows="2" placeholder="Ingredients (Comma separated: 200g paneer, 2 tomatoes, 1 onion, 2 cloves garlic)" required aria-label="Ingredients list"></textarea>
+                    <textarea id="instructions" class="full-width" rows="3" placeholder="Cooking Steps (Period or newline separated: Chop vegetables. Heat olive oil. Simmer for 10 minutes.)" required aria-label="Cooking instructions"></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn-submit btn-primary">
+                    <span class="material-symbols-outlined" aria-hidden="true">bookmark_add</span> <span>Save Recipe</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Saved Recipes Grid Section -->
+        <div class="section-header">
+            <h2 class="section-title"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span> Saved Recipes</h2>
+            <span id="recipeCountBadge" class="badge-highlight"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span> 0 Recipes</span>
+        </div>
+        
+        <div class="recipes-grid" id="recipeCards"></div>
+    </section>
+
+    <!-- TAB 2: WEEKLY MEAL PLANNER -->
+    <section id="planner-view" class="view-section" aria-label="Weekly Meal Planner">
+        <div class="card-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+                <h2><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span> Assign Meal to Schedule</h2>
+                <button type="button" class="btn-submit btn-danger btn-sm" onclick="clearFullPlan()" aria-label="Reset entire week schedule">
+                    <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span> <span>Reset Week Schedule</span>
+                </button>
+            </div>
+            <br>
+            <div class="form-grid">
+                <select id="planDay" aria-label="Select day of the week">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                    <option value="Sunday">Sunday</option>
+                </select>
+
+                <select id="planRecipe" aria-label="Select recipe for meal plan"></select>
+
+                <button type="button" class="btn-submit btn-primary" onclick="addToPlan()">
+                    <span class="material-symbols-outlined" aria-hidden="true">add_task</span> <span>Add to Weekly Plan</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="planner-grid" id="weeklyCalendar"></div>
+    </section>
+
+    <!-- TAB 3: AUTOMATED SHOPPING LIST -->
+    <section id="shopping-view" class="view-section" aria-label="Automated Shopping List">
+        <div class="card-box">
+            <h2><span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span> Automated Shopping List</h2>
+            
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 24px; flex-wrap: wrap;">
+                <button type="button" class="btn-submit btn-whatsapp" onclick="shareWhatsApp()" aria-label="Share full shopping list via WhatsApp">
+                    <span class="material-symbols-outlined" aria-hidden="true">share</span> <span>WhatsApp Share</span>
+                </button>
+                
+                <button type="button" class="btn-submit btn-secondary" onclick="copyShoppingList()" aria-label="Copy full shopping list to clipboard">
+                    <span class="material-symbols-outlined" aria-hidden="true">content_copy</span> <span>Copy Full List</span>
+                </button>
+
+                <button type="button" class="btn-submit btn-secondary" onclick="downloadTxtList()" aria-label="Download shopping list as a text file">
+                    <span class="material-symbols-outlined" aria-hidden="true">download</span> <span>Download .TXT</span>
+                </button>
+            </div>
+
+            <ul class="shopping-list" id="shoppingList"></ul>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-left">
+            <a href="index.html" class="footer-brand" aria-label="Smart Recipe Planner">
+                <span class="brand-symbol-badge" style="width:28px; height:28px;">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px;">restaurant_menu</span>
+                </span>
+                <span>Smart Recipe Planner</span>
+            </a>
+            <p class="footer-copyright">&copy; 2026 Smart Recipe Planner. Modern, intelligent culinary organization.</p>
+        </div>
+        <div class="footer-links">
+            <button type="button" class="footer-link" onclick="switchTab('recipes')"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span> <span>Recipes</span></button>
+            <button type="button" class="footer-link" onclick="switchTab('planner')"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span> <span>Weekly Planner</span></button>
+            <button type="button" class="footer-link" onclick="switchTab('shopping')"><span class="material-symbols-outlined" aria-hidden="true">shopping_cart</span> <span>Shopping List</span></button>
+            <a href="login.html" class="footer-link"><span class="material-symbols-outlined" aria-hidden="true">account_circle</span> <span>Account</span></a>
+        </div>
+    </div>
+</footer>
+
+<!-- COOKING MODE MODAL WITH AUDIO -->
+<div class="modal" id="cookingModal" role="dialog" aria-modal="true" aria-labelledby="modalRecipeTitle">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h2 id="modalRecipeTitle" style="display: flex; align-items: center; gap: 10px; margin: 0;">
+                <span class="material-symbols-outlined" style="color: var(--btn-primary-bg);" aria-hidden="true">skillet</span>
+                <span>Cooking Mode</span>
+            </h2>
+            <button type="button" class="modal-close-btn" onclick="closeModal()" aria-label="Close Cooking Mode" title="Close Cooking Mode">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        
+        <div class="timer-box">
+            <div class="timer-display" id="timerDisplay" aria-live="polite" aria-atomic="true">00:00</div>
+            <div style="display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap;">
+                <button type="button" id="timerToggleBtn" class="btn-submit btn-primary" style="padding: 10px 22px;" onclick="toggleTimer()">
+                    <span class="material-symbols-outlined" id="timerToggleIcon" aria-hidden="true">play_arrow</span> <span id="timerToggleText">Start Timer</span>
+                </button>
+                <button type="button" class="btn-submit btn-secondary" style="padding: 10px 20px;" onclick="resetTimer()">
+                    <span class="material-symbols-outlined" aria-hidden="true">restart_alt</span> <span>Reset Timer</span>
+                </button>
+            </div>
+        </div>
+        
+        <h3 style="margin-bottom:14px; font-size: 1.1rem; color: var(--text-primary); font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="color: var(--btn-primary-bg);" aria-hidden="true">format_list_numbered</span> Cooking Steps:
+        </h3>
+        <div id="modalSteps"></div>
+        <br>
+        <button type="button" class="btn-submit btn-secondary" style="width:100%;" onclick="closeModal()">
+            <span class="material-symbols-outlined" aria-hidden="true">close</span> <span>Close Cooking Mode</span>
+        </button>
+    </div>
+</div>
+
+<!-- Custom JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>

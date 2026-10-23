@@ -1,0 +1,26 @@
+# Example configuration file for Smart Recipe Planner
+# Copy to application.properties or set the environment variables
+
+server.port=8080
+
+spring.datasource.url=jdbc:h2:file:./data/recipes
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.open-in-view=true
+
+# Set these in your environment or below
+# e.g. export MAIL_USERNAME="your-email@gmail.com"
+# e.g. export MAIL_PASSWORD="your-16-char-app-password"
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=${MAIL_USERNAME:your-email@gmail.com}
+spring.mail.password=${MAIL_PASSWORD:your-16-char-app-password}
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.starttls.required=true
+spring.mail.properties.mail.debug=false

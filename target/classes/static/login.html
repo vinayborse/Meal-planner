@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Recipe Planner - Authentication</title>
+    
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background-color: #CFE9F0;
+            background-image: radial-gradient(circle at 65.34% 44.62%, rgba(238, 246, 227, 1) 0%, rgba(238, 246, 227, 0) 34.1%), radial-gradient(circle at 28.07% 74.48%, rgba(183, 217, 142, 1) 0%, rgba(183, 217, 142, 0) 45.65%), radial-gradient(circle at 52.42% 19.94%, rgba(127, 191, 154, 1) 0%, rgba(127, 191, 154, 0) 57.55%), radial-gradient(circle at 80.31% 84.47%, rgba(207, 233, 240, 1) 0%, rgba(207, 233, 240, 0) 69.1%);
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            margin: 0;
+            font-family: var(--font-apple);
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+            animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.97) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            padding: 40px 34px;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            position: relative;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 26px;
+            letter-spacing: -0.03em;
+            text-decoration: none;
+        }
+
+        .brand-header .material-symbols-outlined,
+        .brand-header i {
+            color: var(--btn-primary-bg);
+            font-size: 1.55rem;
+            line-height: 1;
+        }
+
+        .auth-tabs-wrapper {
+            position: relative;
+            background: #EBEBED;
+            padding: 4px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            margin-bottom: 26px;
+            display: flex;
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 9px 0;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+            font-family: var(--font-apple);
+            letter-spacing: -0.01em;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .auth-tab-btn .material-symbols-outlined,
+        .auth-tab-btn i {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .auth-tab-btn.active { 
+            color: var(--text-primary); 
+        }
+
+        .tab-indicator {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: #FFFFFF;
+            border-radius: var(--radius-pill);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+
+        .tab-indicator.signup-active { 
+            transform: translateX(100%); 
+        }
+
+        .auth-form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .auth-form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .auth-form-group label .material-symbols-outlined,
+        .auth-form-group label i { 
+            color: var(--btn-primary-bg); 
+            font-size: 1.1rem; 
+            line-height: 1;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            outline: none;
+            background: #FFFFFF;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: var(--font-apple);
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+        }
+
+        .input-wrapper.input-with-icon input {
+            padding-left: 42px !important;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--btn-primary-bg);
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.18);
+        }
+
+        .full-width-btn {
+            width: 100%;
+            margin-top: 14px;
+            padding: 13px;
+            font-size: 0.96rem;
+        }
+
+        .auth-message {
+            margin-top: 18px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            min-height: 22px;
+            text-align: center;
+            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .auth-message .material-symbols-outlined {
+            font-size: 1.15rem;
+            line-height: 1;
+        }
+
+        .back-home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+            margin-top: 22px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .back-home-link .material-symbols-outlined {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        .back-home-link:hover {
+            color: var(--text-primary);
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            
+            <a href="index.html" class="brand-header">
+                <span class="brand-symbol-badge" style="width:34px; height:34px;">
+                    <span class="material-symbols-outlined" aria-hidden="true" style="font-size:22px;">restaurant_menu</span>
+                </span>
+                <span>Smart Recipe Planner</span>
+            </a>
+
+            <div class="auth-tabs-wrapper">
+                <div id="tabIndicator" class="tab-indicator"></div>
+                <button type="button" class="auth-tab-btn active" onclick="switchTab('login')">
+                    <span class="material-symbols-outlined" aria-hidden="true">login</span> <span>Sign In</span>
+                </button>
+                <button type="button" class="auth-tab-btn" onclick="switchTab('register')">
+                    <span class="material-symbols-outlined" aria-hidden="true">person_add</span> <span>Sign Up</span>
+                </button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="auth-form-group">
+                    <label for="loginUsername"><span class="material-symbols-outlined" aria-hidden="true">person</span> <span>Username</span></label>
+                    <div class="input-wrapper input-with-icon">
+                        <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">person</span>
+                        <input type="text" id="loginUsername" required placeholder="Enter username" autocomplete="username">
+                    </div>
+                </div>
+                <div class="auth-form-group">
+                    <label for="loginPassword"><span class="material-symbols-outlined" aria-hidden="true">lock</span> <span>Password</span></label>
+                    <div class="input-wrapper input-with-icon">
+                        <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">lock</span>
+                        <input type="password" id="loginPassword" required placeholder="••••••••" autocomplete="current-password" class="has-toggle">
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('loginPassword', this)" aria-label="Show password" title="Show password">
+                            <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit btn-primary full-width-btn">
+                    <span class="material-symbols-outlined" aria-hidden="true">login</span> <span>Sign In</span>
+                </button>
+            </form>
+
+            <!-- REGISTER FORM (USERNAME + PASSWORD ONLY) -->
+            <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
+                <div class="auth-form-group">
+                    <label for="regUsername"><span class="material-symbols-outlined" aria-hidden="true">person</span> <span>Choose Username</span></label>
+                    <div class="input-wrapper input-with-icon">
+                        <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">person</span>
+                        <input type="text" id="regUsername" required placeholder="Choose a username" autocomplete="username">
+                    </div>
+                </div>
+
+                <div class="auth-form-group">
+                    <label for="regPassword"><span class="material-symbols-outlined" aria-hidden="true">lock</span> <span>Password</span></label>
+                    <div class="input-wrapper input-with-icon">
+                        <span class="material-symbols-outlined input-leading-icon" aria-hidden="true">lock</span>
+                        <input type="password" id="regPassword" required placeholder="Create password (min 4 characters)" autocomplete="new-password" class="has-toggle">
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('regPassword', this)" aria-label="Show password" title="Show password">
+                            <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit btn-primary full-width-btn">
+                    <span class="material-symbols-outlined" aria-hidden="true">person_add</span> <span>Create Account</span>
+                </button>
+            </form>
+
+            <div id="authMessage" class="auth-message"></div>
+
+            <a href="index.html" class="back-home-link">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> <span>Back to Recipe Planner</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>

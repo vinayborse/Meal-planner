@@ -1,0 +1,1687 @@
+/* ==========================================================================
+   SMART RECIPE PLANNER - APPLE MINIMALIST DESIGN SYSTEM
+   60-30-10 Color Architecture:
+   - 60% Canvas & Surfaces: Clean Apple White (#FFFFFF) & Pure Light Neutral (#F5F5F7)
+   - 30% Bold Apple Typography & Structure: Jet Black (#000000), Slate (#1D1D1F), Muted (#6E6E73)
+   - 10% Semantic Action Buttons:
+       * Primary / Recipe Actions: Vibrant Culinary Orange (#FF6B00)
+       * Secondary / Utility Actions: Apple Neutral Gray (#F2F2F7, Border #D1D1D6)
+       * Success / WhatsApp Sharing: Apple Green (#25D366 / #34C759)
+       * Destructive Actions: Apple Crimson Red (#FF3B30 / #D70015)
+   ========================================================================== */
+
+:root {
+    /* Backgrounds & Canvas (60%) - "Jade Sky" Organic Mesh Canvas */
+    --bg-jade-base: #CFE9F0;
+    --bg-jade-sky: radial-gradient(circle at 65.34% 44.62%, rgba(238, 246, 227, 1) 0%, rgba(238, 246, 227, 0) 34.1%), radial-gradient(circle at 28.07% 74.48%, rgba(183, 217, 142, 1) 0%, rgba(183, 217, 142, 0) 45.65%), radial-gradient(circle at 52.42% 19.94%, rgba(127, 191, 154, 1) 0%, rgba(127, 191, 154, 0) 57.55%), radial-gradient(circle at 80.31% 84.47%, rgba(207, 233, 240, 1) 0%, rgba(207, 233, 240, 0) 69.1%);
+    --bg-page: var(--bg-jade-base);
+    --bg-surface: rgba(255, 255, 255, 0.90);
+    --bg-surface-elevated: rgba(255, 255, 255, 0.95);
+    --bg-subtle: rgba(255, 255, 255, 0.65);
+    --bg-hero: transparent;
+    
+    /* Apple Typography & Structure (30%) */
+    --text-primary: #000000;
+    --text-body: #1D1D1F;
+    --text-secondary: #515154;
+    --text-muted: #6E6E73;
+    --border-light: rgba(0, 0, 0, 0.08);
+    --border-subtle: rgba(255, 255, 255, 0.6);
+    --border-strong: #D1D1D6;
+    --divider: rgba(0, 0, 0, 0.08);
+    
+    /* Semantic Button Colors (10%) */
+    /* 1. Primary Orange */
+    --btn-primary-bg: #FF6B00;
+    --btn-primary-hover: #FF7A1A;
+    --btn-primary-active: #E65100;
+    --btn-primary-shadow: rgba(255, 107, 0, 0.28);
+    
+    /* 2. Secondary Neutral */
+    --btn-secondary-bg: #F2F2F7;
+    --btn-secondary-hover: #E5E5EA;
+    --btn-secondary-active: #D1D1D6;
+    --btn-secondary-text: #1D1D1F;
+    
+    /* 3. Success / Green / WhatsApp */
+    --btn-success-bg: #25D366;
+    --btn-success-hover: #20BD5A;
+    --btn-success-active: #1CA850;
+    --btn-success-shadow: rgba(37, 211, 102, 0.3);
+    
+    /* 4. Destructive / Red */
+    --btn-danger-bg: #FF3B30;
+    --btn-danger-hover: #E02B20;
+    --btn-danger-active: #C41C12;
+    --btn-danger-shadow: rgba(255, 59, 48, 0.3);
+
+    /* Apple Border Radii */
+    --radius-xl: 18px;
+    --radius-lg: 14px;
+    --radius-md: 10px;
+    --radius-sm: 8px;
+    --radius-pill: 9999px;
+
+    /* Apple Soft Shadows */
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 6px 22px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+    --shadow-card-hover: 0 14px 34px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+    --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.08);
+
+    /* Apple-Inspired Font Stack */
+    --font-apple: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+}
+
+/* Base Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-apple);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-jade-base);
+    background-image: var(--bg-jade-sky);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: var(--text-body);
+    font-family: var(--font-apple);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+}
+
+/* Scroll Offset for Sticky Header */
+.view-section,
+.card-box,
+section {
+    scroll-margin-top: 84px;
+}
+
+/* ==========================================================================
+   GOOGLE MATERIAL SYMBOLS & DYNAMIC ISLAND BADGES
+   ========================================================================== */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings: 'FILL' 1, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    user-select: none;
+}
+
+.brand-symbol-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), 0 2px 6px rgba(0, 0, 0, 0.3);
+    color: var(--btn-primary-bg);
+    flex-shrink: 0;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.brand-symbol-badge .material-symbols-outlined {
+    font-size: 20px;
+    color: var(--btn-primary-bg);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease;
+}
+
+.brand:hover .brand-symbol-badge {
+    transform: scale(1.08) rotate(4deg);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   DYNAMIC ISLAND HEADER (Pitch Black Apple Floating Capsule)
+   ========================================================================== */
+header {
+    background: #09090B;
+    background: rgba(10, 10, 14, 0.94);
+    backdrop-filter: blur(32px) saturate(200%);
+    -webkit-backdrop-filter: blur(32px) saturate(200%);
+    padding: 8px 18px 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-pill);
+    position: sticky;
+    top: 14px;
+    z-index: 1000;
+    margin: 14px auto 0 auto;
+    width: fit-content;
+    max-width: min(94%, 980px);
+    box-shadow: 
+        0 18px 46px rgba(0, 0, 0, 0.52),
+        0 4px 14px rgba(0, 0, 0, 0.38),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.25);
+    gap: 16px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+header:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.26);
+    box-shadow: 
+        0 22px 54px rgba(0, 0, 0, 0.6),
+        0 6px 18px rgba(0, 0, 0, 0.42),
+        inset 0 1px 2px rgba(255, 255, 255, 0.32);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.brand:hover {
+    opacity: 0.92;
+}
+
+.brand span {
+    color: #FFFFFF;
+}
+
+/* Dynamic Island Segmented Tabs Container */
+.nav-tabs {
+    display: flex;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+/* Dynamic Island Tab Buttons */
+.tab-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid transparent;
+    color: rgba(255, 255, 255, 0.72);
+    padding: 7px 16px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.86rem;
+    letter-spacing: -0.01em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    outline: none;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    isolation: isolate;
+}
+
+.tab-btn:hover:not(.active) {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tab-btn:active:not(.active) {
+    transform: scale(0.97);
+}
+
+/* Dynamic Island Active Tab: Crisp White Pill with Black Typography */
+.tab-btn.active {
+    background: #FFFFFF;
+    color: #000000;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 
+        0 2px 10px rgba(0, 0, 0, 0.35),
+        0 0 12px rgba(255, 255, 255, 0.25);
+    transform: scale(1);
+}
+
+.tab-btn.active .material-symbols-outlined,
+.tab-btn.active i {
+    color: #000000;
+}
+
+.tab-btn .material-symbols-outlined,
+.tab-btn i {
+    font-size: 1.05rem;
+    color: inherit;
+}
+
+.tab-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+/* Navigation Right Auth Area */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-auth-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-profile-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.84rem;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.16);
+    max-width: 200px;
+}
+
+.user-name-display {
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    color: #FFFFFF;
+}
+
+/* Dynamic Island Auth / Logout Link */
+.auth-nav-link {
+    position: relative;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.18);
+}
+
+.auth-nav-link:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.04);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #FFFFFF;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.25);
+}
+
+.auth-nav-link:active {
+    transform: scale(0.97);
+}
+
+.auth-nav-link:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   HERO SECTION (Apple High-Impact Visual Banner)
+   ========================================================================== */
+.hero-section {
+    background: transparent;
+    border-bottom: none;
+    padding: 20px 20px 12px;
+    text-align: left;
+    position: relative;
+}
+
+.hero-container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(28px) saturate(190%);
+    -webkit-backdrop-filter: blur(28px) saturate(190%);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 28px;
+    padding: 24px 30px;
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: visible;
+    display: grid;
+    grid-template-columns: 1.28fr 0.72fr;
+    align-items: center;
+    gap: 28px;
+    text-align: left;
+}
+
+.hero-container::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 15%;
+    width: 60%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(255, 107, 0, 0.1) 0%, rgba(255, 107, 0, 0) 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 107, 0, 0.28);
+    padding: 5px 13px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #C0392B;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(255, 107, 0, 0.09);
+    letter-spacing: -0.01em;
+}
+
+.hero-pill .material-symbols-outlined {
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--btn-primary-bg);
+}
+
+.hero-title {
+    font-size: clamp(1.65rem, 2.7vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.hero-gradient-text {
+    background: linear-gradient(135deg, #FF6B00 15%, #E65100 85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.hero-subtitle {
+    font-size: 0.92rem;
+    color: #4B5563;
+    line-height: 1.45;
+    margin-bottom: 16px;
+    font-weight: 450;
+    max-width: 480px;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.hero-btn-primary,
+.hero-btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    white-space: nowrap;
+    font-family: var(--font-apple);
+    letter-spacing: -0.01em;
+    font-size: 0.86rem;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: var(--radius-pill);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-btn-primary {
+    background: linear-gradient(135deg, #FF6B00 0%, #E65100 100%) !important;
+    color: #FFFFFF !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 16px rgba(255, 107, 0, 0.32) !important;
+}
+
+.hero-btn-primary * {
+    color: #FFFFFF !important;
+}
+
+.hero-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(255, 107, 0, 0.42) !important;
+}
+
+.hero-btn-secondary {
+    background: #FFFFFF !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    color: #111827 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+.hero-btn-secondary,
+.hero-btn-secondary *,
+.hero-btn-secondary span,
+.hero-btn-secondary .material-symbols-outlined {
+    color: #111827 !important;
+}
+
+.hero-btn-secondary:hover {
+    transform: translateY(-2px);
+    background: #F9FAFB !important;
+    border-color: rgba(0, 0, 0, 0.22) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 3D Visual Floating Card in Hero */
+.hero-3d-wrapper {
+    position: relative;
+    z-index: 1;
+    perspective: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.hero-3d-card {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 16px 18px;
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(255, 107, 0, 0.08);
+    transform: rotateY(-8deg) rotateX(5deg);
+    animation: float3d 5s ease-in-out infinite;
+    transform-style: preserve-3d;
+    width: 100%;
+    max-width: 280px;
+}
+
+@keyframes float3d {
+    0%, 100% {
+        transform: rotateY(-8deg) rotateX(5deg) translateY(0px);
+    }
+    50% {
+        transform: rotateY(-3deg) rotateX(1deg) translateY(-8px);
+    }
+}
+
+.hero-3d-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.hero-3d-badge-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FF6B00;
+}
+
+.hero-3d-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.2;
+}
+
+.hero-3d-subtitle {
+    font-size: 0.76rem;
+    color: #6B7280;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.hero-3d-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.hero-3d-tag {
+    background: #F3F4F6;
+    color: #374151;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.hero-3d-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+.hero-float-chip {
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: var(--radius-pill);
+    padding: 5px 11px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #111827;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    animation: floatChip 4s ease-in-out infinite alternate;
+}
+
+.chip-1 {
+    top: -10px;
+    right: 0px;
+    animation-delay: 0.4s;
+}
+
+.chip-2 {
+    bottom: -8px;
+    left: -4px;
+    animation-delay: 1.2s;
+}
+
+@keyframes floatChip {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-6px); }
+}
+
+/* ==========================================================================
+   MAIN LAYOUT CONTAINER & VIEWS
+   ========================================================================== */
+.container {
+    max-width: 1180px;
+    margin: 14px auto 32px;
+    padding: 0 24px;
+    flex: 1;
+    width: 100%;
+}
+
+.view-section {
+    display: none;
+    animation: fadeInView 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInView {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.view-section.active {
+    display: block;
+}
+
+/* Section Header Typography */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title .material-symbols-outlined,
+.section-title i {
+    color: var(--btn-primary-bg);
+    font-size: 1.35rem;
+    line-height: 1;
+}
+
+/* Card Box */
+.card-box {
+    background: var(--bg-surface);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 28px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.card-box:hover {
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(255, 255, 255, 0.95);
+}
+
+.card-box h2 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+}
+
+.card-box h2 .material-symbols-outlined,
+.card-box h2 i {
+    color: var(--btn-primary-bg);
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.generator-card {
+    /* Seamless border with no intrusive horizontal line */
+    border: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+/* ==========================================================================
+   BUTTONS WITH DIFFERENT COLOR SYSTEM
+   - Primary: Orange (#FF6B00)
+   - Secondary: Neutral Gray (#F2F2F7)
+   - Success / WhatsApp: Green (#25D366 / #34C759)
+   - Danger: Apple Red (#FF3B30)
+   ========================================================================== */
+
+/* Universal Button Base */
+.btn-submit,
+.btn-primary,
+.btn-secondary,
+.btn-whatsapp,
+.btn-success,
+.btn-danger {
+    position: relative;
+    padding: 12px 22px;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: 0.92rem;
+    font-family: var(--font-apple);
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    outline: none;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Button & Nav Icon Standard Sizing & Vertical Centering */
+.btn-submit .material-symbols-outlined,
+.btn-primary .material-symbols-outlined,
+.btn-secondary .material-symbols-outlined,
+.btn-whatsapp .material-symbols-outlined,
+.btn-success .material-symbols-outlined,
+.btn-danger .material-symbols-outlined,
+.btn-submit i,
+.btn-primary i,
+.btn-secondary i,
+.btn-whatsapp i,
+.btn-success i,
+.btn-danger i {
+    font-size: 1.15rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.btn-sm .material-symbols-outlined,
+.btn-sm i {
+    font-size: 1rem;
+}
+
+.tab-btn .material-symbols-outlined,
+.tab-btn i {
+    font-size: 1.1rem;
+    line-height: 1;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-nav-link .material-symbols-outlined,
+.auth-nav-link i {
+    font-size: 1.05rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* 1. Primary Orange Button (Main CTA & Core Culinary Actions) */
+.btn-submit,
+.btn-primary {
+    background-color: var(--btn-primary-bg);
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 12px var(--btn-primary-shadow);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-submit:hover,
+.btn-primary:hover {
+    background-color: var(--btn-primary-hover);
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 18px var(--btn-primary-shadow);
+}
+
+.btn-submit:active,
+.btn-primary:active {
+    background-color: var(--btn-primary-active);
+    transform: translateY(1px);
+    box-shadow: 0 2px 6px var(--btn-primary-shadow);
+}
+
+.btn-submit:focus-visible,
+.btn-primary:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.4) !important;
+}
+
+/* 2. Secondary Neutral Button (Apple Clean Gray) */
+.btn-secondary {
+    background-color: var(--btn-secondary-bg) !important;
+    color: var(--btn-secondary-text) !important;
+    border: 1px solid var(--border-strong) !important;
+    box-shadow: var(--shadow-subtle) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--btn-secondary-hover) !important;
+    color: #000000 !important;
+    transform: translateY(-1.5px);
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06) !important;
+}
+
+.btn-secondary:active {
+    background-color: var(--btn-secondary-active) !important;
+    transform: translateY(1px);
+}
+
+.btn-secondary:focus-visible {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* 3. Success / Green / WhatsApp Button */
+.btn-whatsapp,
+.btn-success {
+    background-color: var(--btn-success-bg) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 12px var(--btn-success-shadow) !important;
+}
+
+.btn-whatsapp:hover,
+.btn-success:hover {
+    background-color: var(--btn-success-hover) !important;
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 18px var(--btn-success-shadow) !important;
+}
+
+.btn-whatsapp:active,
+.btn-success:active {
+    background-color: var(--btn-success-active) !important;
+    transform: translateY(1px);
+}
+
+.btn-whatsapp:focus-visible,
+.btn-success:focus-visible {
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.4) !important;
+}
+
+/* 4. Destructive / Red Button (Delete & Reset) */
+.btn-danger {
+    background-color: var(--btn-danger-bg) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 4px 12px var(--btn-danger-shadow) !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--btn-danger-hover) !important;
+    transform: translateY(-1.5px);
+    box-shadow: 0 6px 18px var(--btn-danger-shadow) !important;
+}
+
+.btn-danger:active {
+    background-color: var(--btn-danger-active) !important;
+    transform: translateY(1px);
+}
+
+.btn-danger:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255, 59, 48, 0.4) !important;
+}
+
+/* Small Button Modifier */
+.btn-sm {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+    border-radius: var(--radius-sm);
+}
+
+/* Planner Remove Meal Button */
+.plan-remove-btn {
+    background: transparent;
+    border: none;
+    color: var(--btn-danger-bg);
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+    outline: none;
+}
+
+.plan-remove-btn:hover {
+    background: rgba(255, 59, 48, 0.12);
+    transform: scale(1.1);
+}
+
+.plan-remove-btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--btn-danger-bg);
+}
+
+/* Disabled State */
+button:disabled,
+.btn-submit:disabled,
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ==========================================================================
+   FORM INPUTS & GRID SYSTEM
+   ========================================================================== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    outline: none;
+    background: #FFFFFF;
+    color: var(--text-primary);
+    font-size: 0.94rem;
+    font-weight: 500;
+    font-family: var(--font-apple);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+select {
+    cursor: pointer;
+    background-color: #FFFFFF;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--btn-primary-bg);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.18);
+    background-color: #FFFFFF;
+}
+
+/* Input Fields with Subtle Leading Icons */
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-with-icon .input-leading-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--text-muted);
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 2;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-with-icon input,
+.input-with-icon select {
+    padding-left: 44px !important;
+}
+
+.input-with-icon:focus-within .input-leading-icon {
+    color: var(--btn-primary-bg);
+}
+
+/* Password Visibility Toggle Button */
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: color 0.2s ease, transform 0.15s ease;
+    z-index: 2;
+    border-radius: var(--radius-sm);
+    outline: none;
+}
+
+.password-toggle-btn .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.password-toggle-btn:hover {
+    color: var(--text-primary);
+}
+
+.password-toggle-btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--btn-primary-bg);
+}
+
+.input-with-icon input.has-toggle {
+    padding-right: 42px !important;
+}
+
+/* Modal Close Button */
+.modal-close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    outline: none;
+}
+
+.modal-close-btn:hover {
+    color: var(--text-primary);
+    background: #EBEBED;
+}
+
+.modal-close-btn:focus-visible {
+    box-shadow: 0 0 0 2px var(--btn-primary-bg);
+}
+
+.badge-highlight {
+    background: var(--btn-primary-bg);
+    color: #FFFFFF;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-highlight .material-symbols-outlined,
+.badge-highlight i {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   RECIPES GRID & RECIPE CARDS (Apple Widget Design)
+   ========================================================================== */
+.recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.recipe-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+    position: relative;
+}
+
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--border-strong);
+}
+
+.recipe-card-header {
+    background: var(--bg-subtle);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recipe-card-header .cuisine-tag {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.recipe-card-header .cuisine-tag .material-symbols-outlined,
+.recipe-card-header .cuisine-tag i {
+    font-size: 0.95rem;
+    line-height: 1;
+    color: inherit;
+}
+
+.meal-tag {
+    background: #EBEBED;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.recipe-content {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.recipe-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.badges-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.74rem;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.badge .material-symbols-outlined,
+.badge i {
+    font-size: 0.9rem;
+    line-height: 1;
+    color: inherit;
+}
+
+.badge-diet {
+    background: #E8F8F0;
+    color: #0E8345;
+    border: 1px solid rgba(14, 131, 69, 0.2);
+}
+
+.badge-time {
+    background: #F5F5F7;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+}
+
+.badge-cal {
+    background: #FFF4ED;
+    color: #D35400;
+    border: 1px solid rgba(211, 84, 0, 0.2);
+}
+
+.recipe-macros {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--divider);
+}
+
+.recipe-ingredients-preview {
+    font-size: 0.86rem;
+    color: var(--text-body);
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.recipe-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--divider);
+}
+
+/* ==========================================================================
+   WEEKLY PLANNER GRID
+   ========================================================================== */
+.planner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.day-column {
+    background: var(--bg-surface);
+    padding: 18px 14px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-subtle);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+.day-column h3 {
+    font-size: 0.96rem;
+    font-weight: 800;
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--btn-primary-bg);
+    margin-bottom: 14px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+}
+
+.planned-item {
+    background: #FFF8F2;
+    border-left: 3px solid var(--btn-primary-bg);
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255, 107, 0, 0.12);
+    border-right: 1px solid rgba(255, 107, 0, 0.12);
+    border-bottom: 1px solid rgba(255, 107, 0, 0.12);
+}
+
+.planned-item strong {
+    color: var(--text-primary);
+}
+
+.planned-item-link {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   SHOPPING LIST SECTION
+   ========================================================================== */
+.shopping-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.recipe-shopping-block {
+    background: var(--bg-subtle);
+    padding: 18px 22px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    margin-bottom: 20px;
+}
+
+.recipe-block-title {
+    color: var(--text-primary) !important;
+    font-size: 1.05rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.02em;
+}
+
+.recipe-block-title i {
+    color: var(--btn-primary-bg);
+}
+
+.recipe-items-list li {
+    background: #FFFFFF;
+    padding: 12px 18px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid var(--divider);
+    font-weight: 600;
+    color: var(--text-body);
+    margin-bottom: 8px;
+    transition: background-color 0.15s ease;
+}
+
+.recipe-items-list li:hover {
+    background: #F7F7F9;
+}
+
+.recipe-items-list input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--btn-primary-bg);
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   COOKING MODE MODAL
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeInModal 0.25s ease-out;
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: #FFFFFF;
+    padding: 32px;
+    border-radius: var(--radius-xl);
+    max-width: 620px;
+    width: 100%;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-modal);
+    max-height: 88vh;
+    overflow-y: auto;
+    color: var(--text-body);
+}
+
+.modal-content h2 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.025em;
+}
+
+.timer-box {
+    background: #FFF8F2;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    margin: 20px 0;
+    border: 1px solid rgba(255, 107, 0, 0.2);
+}
+
+.timer-display {
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--btn-primary-bg);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+}
+
+.step-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 14px 16px;
+    background: var(--bg-subtle);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--divider);
+    gap: 12px;
+}
+
+.step-item span {
+    font-size: 0.92rem;
+    color: var(--text-body);
+}
+
+.step-item strong {
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION (Apple Clean Feedback)
+   ========================================================================== */
+.toast-notification {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #1D1D1F;
+    color: #FFFFFF;
+    padding: 12px 22px;
+    border-radius: var(--radius-pill);
+    font-size: 0.88rem;
+    font-weight: 600;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 3000;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-notification.success {
+    background: #0E8345;
+}
+
+.toast-notification.error {
+    background: #D32F2F;
+}
+
+/* ==========================================================================
+   FOOTER (Pitch Black Dynamic Finish)
+   ========================================================================== */
+footer {
+    background: #000000;
+    color: rgba(255, 255, 255, 0.7);
+    border-top: none;
+    padding: 48px 24px 38px;
+    margin-top: auto;
+    box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.35);
+}
+
+.footer-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-brand:hover {
+    opacity: 0.9;
+}
+
+.footer-copyright {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: none;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+}
+
+.footer-link .material-symbols-outlined,
+.footer-link i {
+    font-size: 1.05rem;
+    color: inherit;
+}
+
+.footer-link:hover {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN RULES (Dynamic Island on Mobile)
+   ========================================================================== */
+@media (max-width: 820px) {
+    header {
+        top: 10px;
+        margin: 10px 12px 0 12px;
+        width: calc(100% - 24px);
+        max-width: none;
+        padding: 7px 12px;
+        border-radius: 32px;
+        gap: 8px;
+    }
+
+    .brand {
+        font-size: 1rem;
+    }
+
+    .brand span {
+        display: none; /* Hide brand text on mobile, preserving sleek symbol */
+    }
+
+    .tab-btn {
+        padding: 6px 10px;
+        font-size: 0.82rem;
+    }
+
+    .auth-nav-link {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 14px 12px 8px;
+    }
+
+    .hero-container {
+        grid-template-columns: 1fr;
+        padding: 18px 16px;
+        text-align: center;
+        gap: 14px;
+        border-radius: 22px;
+    }
+
+    .hero-title {
+        font-size: 1.55rem;
+        margin-bottom: 6px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.85rem;
+        margin: 0 auto 12px;
+    }
+
+    .hero-actions {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .hero-actions .hero-btn-primary,
+    .hero-actions .hero-btn-secondary {
+        font-size: 0.82rem;
+        padding: 8px 14px;
+        flex: 1 1 auto;
+    }
+
+    .hero-3d-wrapper {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .hero-3d-card {
+        padding: 12px 14px;
+        transform: none;
+        animation: none;
+    }
+
+    .hero-float-chip {
+        display: none;
+    }
+
+    .container {
+        padding: 0 16px;
+        margin-top: 20px;
+    }
+
+    .card-box {
+        padding: 20px 18px;
+    }
+
+    .recipes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .planner-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+}

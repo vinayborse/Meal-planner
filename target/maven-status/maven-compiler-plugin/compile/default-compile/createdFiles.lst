@@ -1,0 +1,13 @@
+com\gojo\recipemealplanner\repository\UserRepository.class
+com\gojo\recipemealplanner\repository\PlanRepository.class
+com\gojo\recipemealplanner\repository\RecipeRepository.class
+com\gojo\recipemealplanner\config\CorsConfig.class
+com\gojo\recipemealplanner\controller\RecipeController.class
+com\gojo\recipemealplanner\config\SecurityConfig.class
+com\gojo\recipemealplanner\model\Recipe.class
+com\gojo\recipemealplanner\RecipeMealPlannerApplication.class
+com\gojo\recipemealplanner\controller\AuthController.class
+com\gojo\recipemealplanner\config\CorsConfig$1.class
+com\gojo\recipemealplanner\controller\PlanController.class
+com\gojo\recipemealplanner\model\User.class
+com\gojo\recipemealplanner\model\PlanEntry.class
