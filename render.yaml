@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: meal-planner
+    env: docker
+    repo: https://github.com/vinayborse/Meal-planner
+    branch: main
+    # No additional build/start commands – Dockerfile handles everything
